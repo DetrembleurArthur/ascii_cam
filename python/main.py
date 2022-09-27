@@ -3,7 +3,7 @@ import time
 import os, sys
 import numpy as np
 
-CAM_SIZE = 7
+CAM_SIZE = 10
 
 def stream(callback: callable):
     vid = cv2.VideoCapture(0)
