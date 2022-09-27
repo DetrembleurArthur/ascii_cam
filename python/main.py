@@ -7,6 +7,9 @@ CAM_SIZE = 7
 
 def stream(callback: callable):
     vid = cv2.VideoCapture(0)
+    if vid.isOpened() == False:
+        print("can not open camera")
+        return
     print("start")
 
     def stepper(frame, chars):

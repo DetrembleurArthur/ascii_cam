@@ -82,7 +82,7 @@ import sys
 caller = Caller()
 IP = sys.argv[2]
 if sys.argv[1] == "caller":
-    caller.call_send("arthur")
+    caller.call_send(sys.argv[3])
 else:
     caller.start()
 
