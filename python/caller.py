@@ -5,6 +5,8 @@ from register import get_contact
 from communication import Communication
 import socket, errno
 
+IP = 'localhost'
+
 class Caller:
 
     def __init__(self):
@@ -78,7 +80,7 @@ class Caller:
 import sys
 
 caller = Caller()
-
+IP = sys.argv[2]
 if sys.argv[1] == "caller":
     caller.call_send("arthur")
 else:
