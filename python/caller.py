@@ -5,7 +5,7 @@ from register import get_contact
 from communication import Communication
 import socket, errno
 
-IP = socket.gethostbyname(socket.gethostname())
+IP = get_contact("host")
 print("host: " + IP)
 
 class Caller:
