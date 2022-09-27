@@ -1,3 +1,3 @@
 arthur:localhost
 jean:localhost
-ubuntu:192.168.1.34
+macos:192.168.1.48
