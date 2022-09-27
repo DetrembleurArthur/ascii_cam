@@ -6,6 +6,7 @@ from communication import Communication
 import socket, errno
 
 IP = socket.gethostbyname(socket.gethostname())
+print("host: " + IP)
 
 class Caller:
 
