@@ -3,6 +3,8 @@ import time
 import os, sys
 import numpy as np
 
+CAM_SIZE = 7
+
 def stream(callback: callable):
     vid = cv2.VideoCapture(0)
     print("start")
@@ -19,8 +21,8 @@ def stream(callback: callable):
 
     def putchar(chars_v, i1, i2, char):
         chars_v[i1:i2] = char
-    putchar(CHARS_V, 0, 60, ' ')
-    putchar(CHARS_V, 60, 120, '.')
+    putchar(CHARS_V, 0, 40, ' ')
+    putchar(CHARS_V, 40, 120, '.')
     putchar(CHARS_V, 120, 200, '*')
     putchar(CHARS_V, 200, 256, '#')
 
@@ -29,11 +31,17 @@ def stream(callback: callable):
         ret, frame = vid.read()
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         t_size = frame.shape
-        frame=cv2.resize(frame,  (t_size[1]//10, t_size[0]//10))
+        frame=cv2.resize(frame,  (t_size[1]//CAM_SIZE, t_size[0]//CAM_SIZE))
         frame = cv2.copyMakeBorder(frame, top=BORDER, bottom=BORDER, left=BORDER, right=BORDER,
             borderType=cv2.BORDER_CONSTANT,
             value=255)
         buffer = stepper(frame, CHARS_V)
-        callback(buffer)
+        if callback(buffer) == "STOP":
+            break
     
     vid.release()
+    print("stop")
+
+
+if __name__ == "__main__":
+    stream(print)
