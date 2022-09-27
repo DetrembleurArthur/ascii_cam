@@ -19,7 +19,7 @@ class Caller:
     def _is_used(self, port):
         test_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         try:
-            test_sock.bind(("localhost", port))
+            test_sock.bind((IP, port))
         except socket.errno == errno.EADDRINUSE:
             test_sock.close()
             return True
@@ -45,11 +45,11 @@ class Caller:
         return port
 	
     def receive_run(self, src_port):
-        receive_stream('localhost', src_port)
+        receive_stream(IP, src_port)
         threads = self.used_ports.pop(src_port)
 
     def call_catch(self):
-        self.call_catcher_sock.bind(('localhost', 5000))
+        self.call_catcher_sock.bind((IP, 5000))
         while self.status == "running":
             print("Wait for a call")
             data, addr = self.call_catcher_sock.recvfrom(1024)
@@ -60,19 +60,19 @@ class Caller:
                 dst_port = int(message[1])
                 src_port = self.get_unused_port()
                 self.call_catcher_sock.sendto(f"{src_port}".encode('utf-8'), addr)
-                communication = Communication('localhost', src_port, addr[0], dst_port)
+                communication = Communication(IP, src_port, addr[0], dst_port)
                 self.used_ports[src_port] = communication
                 communication.start()
     
     def call_send(self, name):
-        self.call_send_sock.bind(('localhost', 4999))
+        self.call_send_sock.bind((IP, 4999))
         contact = get_contact(name)
         src_port = self.get_unused_port()
         self.call_send_sock.sendto(f"call:{src_port}".encode("utf-8"), (contact[1], 5000))
         data, addr = self.call_send_sock.recvfrom(1024)
         self.call_send_sock.close()
         dst_port = int(data.decode("utf-8"))
-        communication = Communication('localhost', src_port, contact[1], dst_port)
+        communication = Communication(IP, src_port, contact[1], dst_port)
         self.used_ports[src_port] = communication
         communication.start()
         print("call sent")
