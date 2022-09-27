@@ -25,9 +25,8 @@ def stream(callback: callable):
     def putchar(chars_v, i1, i2, char):
         chars_v[i1:i2] = char
     putchar(CHARS_V, 0, 40, ' ')
-    putchar(CHARS_V, 40, 80, '.')
-    putchar(CHARS_V, 80, 160, 'o')
-    putchar(CHARS_V, 160, 200, '*')
+    putchar(CHARS_V, 80, 160, '.')
+    putchar(CHARS_V, 160, 200, '+')
     putchar(CHARS_V, 200, 256, '#')
 
     BORDER = 3
