@@ -1,4 +1,6 @@
-host:localhost
+host:192.168.1.48
 arthur:localhost
 jean:localhost
 macos:192.168.1.48
+ubuntu:192.168.1.33
+windows:192.168.1.50
